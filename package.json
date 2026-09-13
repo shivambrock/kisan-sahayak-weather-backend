@@ -1,0 +1,14 @@
+{
+  "name": "kisan-sahayak-weather-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node dev-server.js",
+    "local": "vercel dev",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "vercel": "^59.16.0"
+  }
+}
