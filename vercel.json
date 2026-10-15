@@ -3,6 +3,9 @@
   "functions": {
     "api/weather.js": {
       "maxDuration": 10
+    },
+    "api/mandi.js": {
+      "maxDuration": 15
     }
   },
   "headers": [
