@@ -1,3 +1,7 @@
+import dns from "node:dns";
+
+dns.setDefaultResultOrder("ipv4first");
+
 const CURRENT_RESOURCE = "9ef84268-d588-465a-a308-a864a43d0070";
 const FALLBACK_RESOURCE = "35985678-0d79-46b4-9ed6-6f13308a1d24";
 const MAX_LIMIT = 400;
@@ -80,7 +84,10 @@ export default async function handler(request, response) {
   } catch (error) {
     console.error("Mandi proxy request failed", {
       message: error instanceof Error ? error.message : String(error),
-      name: error instanceof Error ? error.name : "UnknownError"
+      name: error instanceof Error ? error.name : "UnknownError",
+      cause: error instanceof Error && error.cause instanceof Error
+        ? { message: error.cause.message, code: error.cause.code }
+        : undefined
     });
     return response.status(502).json({ error: "Live mandi prices are temporarily unavailable" });
   }
