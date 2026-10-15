@@ -77,7 +77,11 @@ export default async function handler(request, response) {
   }
   try {
     return response.status(200).json(await getMandi(request.query));
-  } catch {
+  } catch (error) {
+    console.error("Mandi proxy request failed", {
+      message: error instanceof Error ? error.message : String(error),
+      name: error instanceof Error ? error.name : "UnknownError"
+    });
     return response.status(502).json({ error: "Live mandi prices are temporarily unavailable" });
   }
 }
