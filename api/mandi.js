@@ -63,14 +63,17 @@ export async function getMandi(query, apiKey = process.env.MANDI_API_KEY) {
   if (query.district) parameters["filters[district]"] = String(query.district).trim();
 
   let lastError;
+  let emptyResult;
   for (const resource of [CURRENT_RESOURCE, FALLBACK_RESOURCE]) {
     try {
       const result = await fetchResource(resource, parameters, apiKey);
       if (result.records.length) return { ...result, offset, limit };
+      emptyResult ??= result;
     } catch (error) {
       lastError = error;
     }
   }
+  if (emptyResult) return { ...emptyResult, offset, limit };
   throw lastError || new Error("No live mandi records available");
 }
 
