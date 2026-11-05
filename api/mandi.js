@@ -61,6 +61,8 @@ export async function getMandi(query, apiKey = process.env.MANDI_API_KEY) {
   const parameters = { limit, offset };
   if (query.state) parameters["filters[state]"] = String(query.state).trim();
   if (query.district) parameters["filters[district]"] = String(query.district).trim();
+  if (query.commodity) parameters["filters[commodity]"] = String(query.commodity).trim();
+  if (query.market) parameters["filters[market]"] = String(query.market).trim();
 
   let lastError;
   let emptyResult;
